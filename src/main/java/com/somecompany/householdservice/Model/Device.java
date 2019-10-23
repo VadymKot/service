@@ -1,6 +1,9 @@
 package com.somecompany.householdservice.Model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 
 @Entity
@@ -9,7 +12,7 @@ public class Device {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     long id;
-    //@OneToOne
+
     String deviceGroupName;
     ArrayList<String> properties;
     boolean isBroken;

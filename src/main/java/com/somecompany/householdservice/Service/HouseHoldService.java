@@ -50,7 +50,7 @@ public class HouseHoldService {
     }
 
     private boolean isExistInDeviceGroupName(String groupName) {
-        return (deviceTypeRepo.findByTypeStartsWithIgnoreCase(groupName)!=null);
+        return (deviceTypeRepo.findByTypeEqualsIgnoreCase(groupName)!=null);
     }
 
     public void deleteDeviceById(long id) throws DeviceNotFoundException {

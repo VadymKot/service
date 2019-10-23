@@ -85,7 +85,7 @@ public class HouseHoldController {
     }
     @PostMapping("/devicegroup")
     EntityModel<?> makeNewDeviceGroup(@RequestBody String newDeviceGroup){
-        return new EntityModel<>(houseHoldService.addDeviceGroupName(newDeviceGroup)+" group is created");
+        return new EntityModel<>(houseHoldService.addDeviceGroupName(newDeviceGroup));
     }
     @GetMapping("/devicegroup")
     CollectionModel<?> receiveAllDeviceGroups(){
