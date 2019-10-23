@@ -30,7 +30,7 @@ public class HouseHoldService {
         DeviceGroupName DeviceGroupName = new DeviceGroupName(typeValue);
         if (!isExistInDeviceGroupName(typeValue)){
         return deviceTypeRepo.save(DeviceGroupName).getType();
-        } else return typeValue+" is already exist";
+        } else return typeValue+" group is already exist";
     }
 
     public List<String> findAllDeviceGroupNames(){

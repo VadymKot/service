@@ -1,8 +1,8 @@
 package com.somecompany.householdservice.Controller;
 
 import com.somecompany.householdservice.Model.Device;
-import com.somecompany.householdservice.Service.Exceptions.DeviceGroupNameException;
 import com.somecompany.householdservice.Service.DeviceModelAssembler;
+import com.somecompany.householdservice.Service.Exceptions.DeviceGroupNameException;
 import com.somecompany.householdservice.Service.Exceptions.DeviceNotFoundException;
 import com.somecompany.householdservice.Service.HouseHoldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +85,7 @@ public class HouseHoldController {
     }
     @PostMapping("/devicegroup")
     EntityModel<?> makeNewDeviceGroup(@RequestBody String newDeviceGroup){
-        return new EntityModel<>(houseHoldService.addDeviceGroupName(newDeviceGroup));
+        return new EntityModel<>(houseHoldService.addDeviceGroupName(newDeviceGroup)+" group is created");
     }
     @GetMapping("/devicegroup")
     CollectionModel<?> receiveAllDeviceGroups(){
