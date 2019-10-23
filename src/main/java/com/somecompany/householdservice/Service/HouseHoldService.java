@@ -4,6 +4,8 @@ import com.somecompany.householdservice.DAO.DeviceDAO;
 import com.somecompany.householdservice.DAO.DeviceGroupNameDAO;
 import com.somecompany.householdservice.Model.Device;
 import com.somecompany.householdservice.Model.DeviceGroupName;
+import com.somecompany.householdservice.Service.Exceptions.DeviceGroupNameException;
+import com.somecompany.householdservice.Service.Exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +43,7 @@ public class HouseHoldService {
         return deviceStrings;
     }
 
-    public Device addDevice(Device device)throws DeviceGroupNameException{
-        //TODO Check if type in list, if not, massage about it addition
+    public Device addDevice(Device device) throws DeviceGroupNameException {
         if (isExistInDeviceGroupName(device.getDeviceGroupName())) {
             return deviceRepo.save(device);
         } else throw new DeviceGroupNameException(device.getDeviceGroupName());
@@ -52,7 +53,7 @@ public class HouseHoldService {
         return (deviceTypeRepo.findByTypeStartsWithIgnoreCase(groupName)!=null);
     }
 
-    public void deleteDeviceById(long id) throws DeviceNotFoundException{
+    public void deleteDeviceById(long id) throws DeviceNotFoundException {
         boolean isDeviceInBase = (findDeviceById(id) != null);
         if (isDeviceInBase) {
             deviceRepo.deleteById(id);
@@ -60,21 +61,24 @@ public class HouseHoldService {
 
     }
 
-    public Device updateDevice(Device updatedDevice, long id){
-        return deviceRepo.findById(id)
-                .map(device -> {
-                    device.setDeviceGroupName(updatedDevice.getDeviceGroupName());
-                    device.setProperties(updatedDevice.getProperties());
-                    device.setIsBroken(updatedDevice.getIsBroken());
-                    device.setDescription(updatedDevice.getDescription());
-                    return deviceRepo.save(device);
-                })
-                .orElseGet(() -> {
-                    updatedDevice.setId(id);
-                    return deviceRepo.save(updatedDevice);
-                });
+    public Device updateDevice(Device updatedDevice, long id) throws DeviceGroupNameException {
+        if (isExistInDeviceGroupName(updatedDevice.getDeviceGroupName())) {
+            return deviceRepo.findById(id)
+                    .map(device -> {
+                        device.setDeviceGroupName(updatedDevice.getDeviceGroupName());
+                        device.setProperties(updatedDevice.getProperties());
+                        device.setIsBroken(updatedDevice.getIsBroken());
+                        device.setDescription(updatedDevice.getDescription());
+                        return deviceRepo.save(device);
+                    })
+                    .orElseGet(() -> {
+                        updatedDevice.setId(id);
+                        return deviceRepo.save(updatedDevice);
+                    });
 
+        } else throw new DeviceGroupNameException(updatedDevice.getDeviceGroupName());
     }
+
 
     public List<Device> findAllDevices(){
         return deviceRepo.findAll();

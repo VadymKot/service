@@ -1,4 +1,4 @@
-package com.somecompany.householdservice.Service;
+package com.somecompany.householdservice.Service.Exceptions;
 
 public class DeviceNotFoundException extends Exception {
 
