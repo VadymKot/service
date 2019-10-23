@@ -1,6 +1,6 @@
 package com.somecompany.householdservice.Service;
 
-public class DeviceNotFoundException extends RuntimeException {
+public class DeviceNotFoundException extends Exception {
 
     public DeviceNotFoundException(long id) {
 

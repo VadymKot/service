@@ -2,6 +2,8 @@ package com.somecompany.householdservice.Controller;
 
 import com.somecompany.householdservice.Model.Device;
 import com.somecompany.householdservice.Model.DeviceGroupName;
+import com.somecompany.householdservice.Service.DeviceGroupNameException;
+import com.somecompany.householdservice.Service.DeviceNotFoundException;
 import com.somecompany.householdservice.Service.HouseHoldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +23,12 @@ public class HouseHoldController {
     }
 
     @PostMapping
-    Device makeNewDevice(@RequestBody Device newDevice){
+    Device makeNewDevice(@RequestBody Device newDevice) throws DeviceGroupNameException {
         return houseHoldService.addDevice(newDevice);
     }
 
     @GetMapping("/id/{id}")
-    Device receiveDeviceById(@PathVariable("id") long id){
+    Device receiveDeviceById(@PathVariable("id") long id) throws DeviceNotFoundException{
         return houseHoldService.findDeviceById(id);
     }
 
@@ -41,12 +43,12 @@ public class HouseHoldController {
     }
 
     @DeleteMapping("/id/{id}")
-    void deleteDeviceById(@PathVariable long id){
+    void deleteDeviceById(@PathVariable long id) throws DeviceNotFoundException {
         houseHoldService.deleteDeviceById(id);
 
     }
     @PostMapping("/devicegroup")
-    DeviceGroupName makeNewDeviceGroup(@RequestBody String newDeviceGroup){
+    String makeNewDeviceGroup(@RequestBody String newDeviceGroup){
         return houseHoldService.addDeviceGroupName(newDeviceGroup);
     }
     @GetMapping("/devicegroup")

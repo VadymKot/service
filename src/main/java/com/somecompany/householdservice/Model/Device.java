@@ -9,15 +9,15 @@ public class Device {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     long id;
-    @OneToOne
-    DeviceGroupName deviceGroupName;
+    //@OneToOne
+    String deviceGroupName;
     ArrayList<String> properties;
     boolean isBroken;
     String description;
 
     public Device(){}
 
-    public Device(DeviceGroupName deviceGroupName, ArrayList<String> properties, boolean isBroken, String description) {
+    public Device(String deviceGroupName, ArrayList<String> properties, boolean isBroken, String description) {
         this.deviceGroupName = deviceGroupName;
         this.properties = properties;
         this.isBroken = isBroken;
@@ -32,11 +32,11 @@ public class Device {
         this.id = id;
     }
 
-    public DeviceGroupName getDeviceGroupName() {
+    public String getDeviceGroupName() {
         return deviceGroupName;
     }
 
-    public void setDeviceGroupName(DeviceGroupName deviceGroupName) {
+    public void setDeviceGroupName(String deviceGroupName) {
         this.deviceGroupName = deviceGroupName;
     }
 

@@ -1,7 +1,7 @@
 package com.somecompany.householdservice.Service;
 
 import com.somecompany.householdservice.DAO.DeviceDAO;
-import com.somecompany.householdservice.DAO.DeviceTypeDAO;
+import com.somecompany.householdservice.DAO.DeviceGroupNameDAO;
 import com.somecompany.householdservice.Model.Device;
 import com.somecompany.householdservice.Model.DeviceGroupName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +14,21 @@ import java.util.List;
 public class HouseHoldService {
 
     private DeviceDAO deviceRepo;
-    private DeviceTypeDAO deviceTypeRepo;
+    private DeviceGroupNameDAO deviceTypeRepo;
 
     public HouseHoldService(){}
 
     @Autowired
-    public HouseHoldService(DeviceDAO deviceRepo, DeviceTypeDAO deviceTypeRepo) {
+    public HouseHoldService(DeviceDAO deviceRepo, DeviceGroupNameDAO deviceTypeRepo) {
         this.deviceRepo = deviceRepo;
         this.deviceTypeRepo = deviceTypeRepo;
     }
 
-    public DeviceGroupName addDeviceGroupName(String typeValue){
+    public String addDeviceGroupName(String typeValue){
         DeviceGroupName DeviceGroupName = new DeviceGroupName(typeValue);
-        return deviceTypeRepo.save(DeviceGroupName);
+        if (!isExistInDeviceGroupName(typeValue)){
+        return deviceTypeRepo.save(DeviceGroupName).getType();
+        } else return typeValue+" is already exist";
     }
 
     public List<String> findAllDeviceGroupNames(){
@@ -39,12 +41,23 @@ public class HouseHoldService {
         return deviceStrings;
     }
 
-    public Device addDevice(Device device){
-        return deviceRepo.save(device);
+    public Device addDevice(Device device)throws DeviceGroupNameException{
+        //TODO Check if type in list, if not, massage about it addition
+        if (isExistInDeviceGroupName(device.getDeviceGroupName())) {
+            return deviceRepo.save(device);
+        } else throw new DeviceGroupNameException(device.getDeviceGroupName());
     }
 
-    public void deleteDeviceById(long id){
-        deviceRepo.deleteById(id);
+    private boolean isExistInDeviceGroupName(String groupName) {
+        return (deviceTypeRepo.findByTypeStartsWithIgnoreCase(groupName)!=null);
+    }
+
+    public void deleteDeviceById(long id) throws DeviceNotFoundException{
+        boolean isDeviceInBase = (findDeviceById(id) != null);
+        if (isDeviceInBase) {
+            deviceRepo.deleteById(id);
+        }
+
     }
 
     public Device updateDevice(Device updatedDevice, long id){
@@ -67,7 +80,7 @@ public class HouseHoldService {
         return deviceRepo.findAll();
     }
 
-    public Device findDeviceById(long id){
+    public Device findDeviceById(long id) throws DeviceNotFoundException{
         return deviceRepo.findById(id).orElseThrow(() -> new DeviceNotFoundException(id));
     }
 }

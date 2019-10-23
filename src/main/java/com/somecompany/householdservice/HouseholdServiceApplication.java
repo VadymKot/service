@@ -29,10 +29,13 @@ public class HouseholdServiceApplication {
         CommandLineRunner initDatabase() {
             return args -> {
 
-                deviceService.addDevice(new Device(deviceService.addDeviceGroupName("Fridge"),
+                deviceService.addDeviceGroupName("Fridge");
+                deviceService.addDeviceGroupName("TV");
+
+                deviceService.addDevice(new Device("Fridge",
                         new ArrayList<String>(Arrays.asList("White","High","CMX-56")),
                         true, "not working a compressor"));
-                deviceService.addDevice(new Device(deviceService.addDeviceGroupName("TV"),
+                deviceService.addDevice(new Device("TV",
                         new ArrayList<String>(Arrays.asList("Black","50'","Sony DFS")),
                         true, "White rounds on the screen"));
             };

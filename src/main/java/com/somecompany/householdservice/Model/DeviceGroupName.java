@@ -1,9 +1,6 @@
 package com.somecompany.householdservice.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class DeviceGroupName {
@@ -31,6 +28,7 @@ public class DeviceGroupName {
         return type;
     }
 
+    @Column(unique = true)
     public void setType(String type) {
         this.type = type;
     }
