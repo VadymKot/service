@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service layer
+ */
+
 @Service
 public class HouseHoldService {
 
