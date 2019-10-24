@@ -27,9 +27,9 @@ public class HouseHoldService {
     }
 
     public String addDeviceGroupName(String typeValue){
-        DeviceGroupName DeviceGroupName = new DeviceGroupName(typeValue);
+        DeviceGroupName deviceGroupName = new DeviceGroupName(typeValue);
         if (!isExistInDeviceGroupName(typeValue)){
-        return deviceTypeRepo.save(DeviceGroupName).getType();
+        return deviceTypeRepo.save(deviceGroupName).getType();
         } else return typeValue+" group is already exist";
     }
 

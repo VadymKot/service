@@ -83,13 +83,14 @@ public class HouseHoldController {
             return new EntityModel<>("Requested device not found!");
         }
     }
-    @PostMapping("/devicegroup")
-    EntityModel<?> makeNewDeviceGroup(@RequestBody String newDeviceGroup){
-        return new EntityModel<>(houseHoldService.addDeviceGroupName(newDeviceGroup));
+    @PostMapping("/devicegroup/add/{newGroup}")
+    String makeNewDeviceGroup(@PathVariable("newGroup") String newDeviceGroup){
+        return houseHoldService.addDeviceGroupName(newDeviceGroup)+" group was successfully add.";
+
     }
     @GetMapping("/devicegroup")
-    CollectionModel<?> receiveAllDeviceGroups(){
-        return new CollectionModel<> (houseHoldService.findAllDeviceGroupNames());
+    List<String> receiveAllDeviceGroups(){
+        return houseHoldService.findAllDeviceGroupNames();
     }
 }
 
