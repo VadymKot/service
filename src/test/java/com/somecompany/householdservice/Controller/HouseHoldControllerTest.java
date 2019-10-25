@@ -2,10 +2,13 @@ package com.somecompany.householdservice.Controller;
 
 
 import com.somecompany.householdservice.Model.Device;
+import com.somecompany.householdservice.Service.Exceptions.DeviceGroupNameException;
+import com.somecompany.householdservice.Service.HouseHoldService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +16,39 @@ import java.util.Arrays;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
-@RunWith(SpringRunner.class)
+@RunWith(JUnit4.class)
 @SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class HouseHoldControllerTest {
+
+    @Autowired
+    HouseHoldService deviceService;
+
+    @Test //I've tried to initialize this block first by @Before and like this, but its not work
+    void ainitializeData() {
+
+        deviceService.addDeviceGroupName("Fridge");
+        deviceService.addDeviceGroupName("TV");
+        deviceService.addDeviceGroupName("Oven");
+
+        System.out.println("init1");
+
+        try {
+            deviceService.addDevice(new Device("Fridge",
+                    new ArrayList<>(Arrays.asList("White","High","CMX-56")),
+                    true, "not working a compressor"));
+
+            deviceService.addDevice(new Device("TV",
+                    new ArrayList<>(Arrays.asList("Black","50'","Sony DFS")),
+                    true, "White rounds on the screen"));
+            deviceService.addDevice(new Device("Oven",
+                    new ArrayList<>(Arrays.asList("Silver","Nano","Temperature autocontrol","Siemens X-68")),
+                    true, "Not heating"));
+            System.out.println(deviceService.findAllDevices());
+        }
+        catch (DeviceGroupNameException e) {
+            System.out.println("Exception");
+        }
+    }
 
     @Test
     void canMakeNewDeviceWithExistingGroup() {
@@ -123,3 +156,6 @@ class HouseHoldControllerTest {
 
     }
 }
+
+
+
