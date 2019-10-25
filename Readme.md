@@ -8,9 +8,9 @@ PostgreSQL 9.4+
 Running the program. 
 
 Postgres must be in localhost:5432
-username: postgres
-password: postgres
-database: servicedb 
+username: postgres  
+password: postgres  
+database: servicedb   
 
 Then run the follow commands from program folder:
 cd /target
