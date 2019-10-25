@@ -88,7 +88,7 @@ public class HouseHoldController {
     }
     @PostMapping("/devicegroup/add/{newGroup}")
     String makeNewDeviceGroup(@PathVariable("newGroup") String newDeviceGroup){
-        return houseHoldService.addDeviceGroupName(newDeviceGroup)+" group was successfully add.";
+        return houseHoldService.addDeviceGroupName(newDeviceGroup);
 
     }
     @GetMapping("/devicegroup")
