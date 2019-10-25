@@ -2,7 +2,7 @@ The program for managing of households in the service center.
 
 Requirements:
 
-JRE 8
+JRE 8,
 PostgreSQL 9.4+
 
 Running the program. 
