@@ -2,7 +2,8 @@ The program for managing of households in the service center.
 
 Requirements:
 
-JRE 8, 
+JDK 8, 
+Maven 3.5.0+,  
 PostgreSQL 9.4+
 
 Running the program. 
@@ -13,6 +14,7 @@ password: postgres
 database: servicedb 
 
 Then run the follow commands from program folder:
+mvn clean package
 cd /target
 java -jar householdservice.jar
 
