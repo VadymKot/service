@@ -24,43 +24,6 @@ import static org.hamcrest.Matchers.containsString;
 @ActiveProfiles("test")
 class HouseHoldControllerTest {
 
-//    @Autowired
-//    HouseHoldService deviceService;
-
-//    @Autowired
-//    public HouseHoldControllerTest(HouseHoldService deviceService) {
-//        this.deviceService=deviceService;
-//
-//        initializeData();
-//    }
-
-//    @Before
-//    public void initializeData() {
-//
-//        deviceService.addDeviceGroupName("Fridge");
-//        deviceService.addDeviceGroupName("TV");
-//        deviceService.addDeviceGroupName("Oven");
-//
-//        System.out.println("init1");
-//
-//        try {
-//            deviceService.addDevice(new Device("Fridge",
-//                    new ArrayList<>(Arrays.asList("White","High","CMX-56")),
-//                    true, "not working a compressor"));
-//
-//            deviceService.addDevice(new Device("TV",
-//                    new ArrayList<>(Arrays.asList("Black","50'","Sony DFS")),
-//                    true, "White rounds on the screen"));
-//            deviceService.addDevice(new Device("Oven",
-//                    new ArrayList<>(Arrays.asList("Silver","Nano","Temperature autocontrol","Siemens X-68")),
-//                    true, "Not heating"));
-//            System.out.println(deviceService.findAllDevices());
-//        }
-//        catch (DeviceGroupNameException e) {
-//            System.out.println("Exception");
-//        }
-//    }
-
     @Test
     void canMakeNewDeviceWithExistingGroup() {
         Device device = new Device("Fridge",
